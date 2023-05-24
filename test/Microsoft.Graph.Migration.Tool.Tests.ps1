@@ -1,4 +1,4 @@
-using module "..\Microsoft.Graph.Tools.Migration.psm1"
+using module "..\Microsoft.Graph.Migration.Tool.psm1"
 Describe "New-MgMigrationPlan Command" {
       Context "V1.0 scripts" {
         It 'Should not output anything' {
