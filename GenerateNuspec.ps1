@@ -1,3 +1,5 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
-nuget spec Microsoft.Graph.Migration.Tool
+function Generate-NuspecFile{
+    nuget spec Microsoft.Graph.Migration.Tool
+}
