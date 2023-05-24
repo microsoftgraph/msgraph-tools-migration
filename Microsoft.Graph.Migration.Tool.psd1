@@ -102,7 +102,7 @@ PrivateData = @{
         LicenseUri = 'https://aka.ms/devservicesagreement'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/microsoftgraph/msgraph-sdk-powershell'
+        ProjectUri = 'https://github.com/microsoftgraph/msgraph-tools-migration'
 
         # A URL to an icon representing this module.
         IconUri = 'https://raw.githubusercontent.com/microsoftgraph/msgraph-sdk-powershell/features/2.0/docs/images/graph_color256.png'
