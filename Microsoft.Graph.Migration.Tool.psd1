@@ -9,16 +9,16 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = '.\Microsoft.Graph.Tools.Migration.psm1'
+RootModule = '.\Microsoft.Graph.Migration.Tool.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '2dd3f066-3ea4-41d3-bb7f-8c70364431fa'
+GUID = '2dd3f066-3ea6-41d6-bb7f-8c70364431fa'
 
 # Author of this module
 Author = 'Microsoft'

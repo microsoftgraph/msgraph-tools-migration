@@ -10,8 +10,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Powershell Microsoft Graph SDK Version I to Version II Migration Toolkit
-</maml:para>
+      <maml:para>Powershell Microsoft Graph SDK Version I to Version II Migration Toolkit</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

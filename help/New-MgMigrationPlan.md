@@ -1,6 +1,6 @@
 ---
-external help file: Microsoft.Graph.Tools.Migration-help.xml
-Module Name: Microsoft.Graph.Tools.Migration
+external help file: Microsoft.Graph.Migration.Tool-help.xml
+Module Name: Microsoft.Graph.Migration.Tool
 online version:
 schema: 2.0.0
 ---
@@ -31,7 +31,7 @@ New-MgMigrationPlan -FilePath <String> [-GraphProfile <String>] [-UpdatedFilePat
 ```
 
 ## DESCRIPTION
-Powershell Microsoft Graph SDK Version I to Version II Migration Toolkit  
+Powershell Microsoft Graph SDK Version I to Version II Migration Toolkit
 
 ## EXAMPLES
 
