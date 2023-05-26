@@ -8,4 +8,7 @@ Param(
 if (-not (Test-Path $ModuleNuspec -PathType Leaf)) {
     Write-Error "Nuspec file not found: $ModuleNuspec."
 }
+if (-not(Test-Path $ArtifactsLocation -PathType Container)) {
+    New-Item -ItemType Directory -Force -Path $ArtifactsLocation
+}
 Nuget pack $ModuleNuspec -OutputDirectory $ArtifactsLocation
