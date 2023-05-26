@@ -2,12 +2,6 @@
 # Licensed under the MIT License.
 
 parameters:
-  - name: BuildAgent
-    displayName: Build Agent
-    default: Dev
-  - name: BaseBranch
-    displayName: Base Branch
-    default: main
   - name: Test
     type: boolean
     default: true
@@ -19,7 +13,7 @@ parameters:
     default: true
 
 pool: 
-  name: $(BuildAgent)
+  name: Dev
 trigger: none
 pr: none
 
