@@ -1,0 +1,85 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+parameters:
+  - name: BuildAgent
+    displayName: Build Agent
+    default: 1es-windows-ps-compute
+  - name: BaseBranch
+    displayName: Base Branch
+    default: main
+  - name: Test
+    type: boolean
+    default: true
+  - name: Pack
+    type: boolean
+    default: true
+  - name: Sign
+    type: boolean
+    default: true
+
+pool: $(BuildAgent)
+trigger: none
+pr: none
+
+jobs:
+- job: MsGraphMigrationToolGeneration
+  steps:
+    - template: ./common-templates/checkout.yml
+    - template: ./common-templates/install-tools.yml
+    - task: PowerShell@2
+      displayName: Generate Migration tool
+      inputs:
+        targetType: inline
+        pwsh: true
+        script: |
+          . $(System.DefaultWorkingDirectory)/tools/GenerateNuspec.ps1
+
+    - ${{ if eq(parameters.Sign, true) }}:
+        - template: ../common-templates/esrp/codesign.yml
+          parameters:
+            FolderPath: "$(System.DefaultWorkingDirectory)"
+            Pattern: "Microsoft.Graph.*.psm1, Microsoft.Graph.*.psd1, Microsoft.Graph.*.format.ps1xml"
+
+        - task: PowerShell@2
+          displayName: "Validate Authenticode Signature"
+          inputs:
+            targetType: "inline"
+            pwsh: true
+            script: |
+                $ModulePath = "$(System.DefaultWorkingDirectory)/msgraph-tools-migration"
+                if (Test-Path $ModulePath) {
+                  $ModulePsd1 = Join-Path $ModulePath "Microsoft.Graph*.psd1" -Resolve
+                  $ModulePsm1 = Join-Path $ModulePath "Microsoft.Graph*.psm1" -Resolve
+                  ($ModulePsd1 | Get-AuthenticodeSignature).Status | Should -Be "Valid"
+                  ($ModulePsm1 | Get-AuthenticodeSignature).Status | Should -Be "Valid"
+                }
+                        
+    - ${{ if eq(parameters.Pack, true) }}:
+        - task: PowerShell@2
+          displayName: Pack Migration Tool Module
+          inputs:
+            targetType: inline
+            pwsh: true
+            script: |
+              . $(System.DefaultWorkingDirectory)/tools/NuspecHelper.ps1
+              . $(System.DefaultWorkingDirectory)/tools/PackModule.ps1
+    
+        - ${{ if and(eq(parameters.Pack, true), eq(parameters.Sign, true)) }}:
+        - template: ./common-templates/esrp/codesign-nuget.yml
+          parameters:
+            FolderPath: "$(Build.ArtifactStagingDirectory)"
+            Pattern: "Microsoft.Graph*.nupkg"
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Module Artifacts
+          inputs:
+            PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+            ArtifactName: "drop"
+            publishLocation: "Container"
+        - task: NuGetCommand@2
+          displayName: Publish NuGet to preview feed
+          inputs:
+            command: push
+            packagesToPush: $(Build.ArtifactStagingDirectory)/**/Microsoft.Graph.*.nupkg
+            publishVstsFeed: $(PROJECT_NAME)/$(PREVIEW_FEED_NAME)
+            allowPackageConflicts: true
