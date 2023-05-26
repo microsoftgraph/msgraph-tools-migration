@@ -111,7 +111,7 @@ PrivateData = @{
         ReleaseNotes = 'See https://aka.ms/GraphPowerShell-Release'
 
         # Prerelease string of this module
-        Prerelease = 'preview1'
+        #Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false
