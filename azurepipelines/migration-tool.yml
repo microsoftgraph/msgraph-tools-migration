@@ -79,5 +79,5 @@ jobs:
       inputs:
         command: push
         packagesToPush: $(Build.ArtifactStagingDirectory)/Microsoft.Graph.*.nupkg
-        publishVstsFeed: $(PROJECT_NAME)/$(PREVIEW_FEED_NAME)
+        publishVstsFeed: $(PREVIEW_FEED_NAME)
         allowPackageConflicts: true
