@@ -36,10 +36,10 @@ jobs:
           . $(System.DefaultWorkingDirectory)/tools/GenerateNuspec.ps1
 
    
-    - template: ./common-templates/esrp/codesign.yml
-      parameters:
-        FolderPath: "$(System.DefaultWorkingDirectory)"
-        Pattern: "Microsoft.Graph.*.psm1, Microsoft.Graph.*.psd1, Microsoft.Graph.*.format.ps1xml"
+    # - template: ./common-templates/esrp/codesign.yml
+    #   parameters:
+    #     FolderPath: "$(System.DefaultWorkingDirectory)"
+    #     Pattern: "Microsoft.Graph.*.psm1, Microsoft.Graph.*.psd1, Microsoft.Graph.*.format.ps1xml"
 
     - task: PowerShell@2
       displayName: "Validate Authenticode Signature"
