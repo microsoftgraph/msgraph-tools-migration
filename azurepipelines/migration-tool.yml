@@ -73,5 +73,5 @@ steps:
     inputs:
       command: push
       packagesToPush: $(System.DefaultWorkingDirectory)/artifacts/Microsoft.Graph.*.nupkg
-      publishVstsFeed: $(PREVIEW_FEED_NAME)
+      publishVstsFeed: AzurePipelinesTutorial/$(PREVIEW_FEED_NAME)
       allowPackageConflicts: true
