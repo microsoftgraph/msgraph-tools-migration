@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 Param(
     [string] $ModuleNuspec = (Join-Path $PSScriptRoot "..\Microsoft.Graph.Migration.Tool.nuspec"),
-    [string] $ArtifactsLocation = (Join-Path $PSScriptRoot "..\")
+    [string] $ArtifactsLocation = (Join-Path $PSScriptRoot "..\artifacts")
 )
 
 if (-not (Test-Path $ModuleNuspec -PathType Leaf)) {
