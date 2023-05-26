@@ -36,10 +36,10 @@ jobs:
           . $(System.DefaultWorkingDirectory)/tools/GenerateNuspec.ps1
 
    
-    # - template: ./common-templates/esrp/codesign.yml
-    #   parameters:
-    #     FolderPath: "$(System.DefaultWorkingDirectory)"
-    #     Pattern: "Microsoft.Graph.*.psm1, Microsoft.Graph.*.psd1, Microsoft.Graph.*.format.ps1xml"
+    - template: ./common-templates/esrp/codesign.yml
+      parameters:
+        FolderPath: "$(System.DefaultWorkingDirectory)"
+        Pattern: "Microsoft.Graph.*.psm1, Microsoft.Graph.*.psd1, Microsoft.Graph.*.format.ps1xml"
 
     - task: PowerShell@2
       displayName: "Validate Authenticode Signature"
@@ -64,10 +64,10 @@ jobs:
           . $(System.DefaultWorkingDirectory)/tools/NuspecHelper.ps1
           . $(System.DefaultWorkingDirectory)/tools/PackModule.ps1
     
-    - template: ./common-templates/esrp/codesign-nuget.yml
-      parameters:
-        FolderPath: "$(Build.ArtifactStagingDirectory)"
-        Pattern: "Microsoft.Graph*.nupkg"
+    # - template: ./common-templates/esrp/codesign-nuget.yml
+    #   parameters:
+    #     FolderPath: "$(Build.ArtifactStagingDirectory)"
+    #     Pattern: "Microsoft.Graph*.nupkg"
     - task: PublishBuildArtifacts@1
       displayName: Publish Module Artifacts
       inputs:
