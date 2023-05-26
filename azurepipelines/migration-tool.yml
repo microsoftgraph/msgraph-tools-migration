@@ -25,7 +25,7 @@ pr: none
 jobs:
 - job: MsGraphMigrationToolGeneration
   steps:
-    - template: ./common-templates/checkout.yml
+    #- template: ./common-templates/checkout.yml
     # - template: ./common-templates/install-tools.yml
     - task: PowerShell@2
       displayName: Generate Migration tool
