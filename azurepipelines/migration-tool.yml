@@ -72,6 +72,6 @@ steps:
     displayName: Publish NuGet to preview feed
     inputs:
       command: push
-      packagesToPush: $(System.DefaultWorkingDirectory)/artifacts/Microsoft.Graph.Migration.Tool.nupkg
+      packagesToPush: $(System.DefaultWorkingDirectory)/artifacts/Microsoft.Graph.*.nupkg
       publishVstsFeed: $(PREVIEW_FEED_NAME)
       allowPackageConflicts: true
