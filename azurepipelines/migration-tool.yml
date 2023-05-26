@@ -65,7 +65,7 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: Publish Module Artifacts
     inputs:
-      PathtoPublish: "$(System.DefaultWorkingDirectory)"
+      PathtoPublish: "$(System.DefaultWorkingDirectory)/Microsoft.Graph.Migration.Tool.nupkg"
       ArtifactName: "Microsoft.Graph.Migration.Tool.nupkg"
       publishLocation: "Container"
   - task: NuGetCommand@2
