@@ -65,13 +65,13 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: Publish Module Artifacts
     inputs:
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-      ArtifactName: "drop"
+      PathtoPublish: "$(System.DefaultWorkingDirectory)"
+      ArtifactName: "Microsoft.Graph.Migration.Tool.nupkg"
       publishLocation: "Container"
   - task: NuGetCommand@2
     displayName: Publish NuGet to preview feed
     inputs:
       command: push
-      packagesToPush: $(Build.ArtifactStagingDirectory)/Microsoft.Graph.*.nupkg
+      packagesToPush: $(System.DefaultWorkingDirectory)/Microsoft.Graph.Migration.Tool.nupkg
       publishVstsFeed: $(PREVIEW_FEED_NAME)
       allowPackageConflicts: true
