@@ -4,7 +4,7 @@
 parameters:
   - name: BuildAgent
     displayName: Build Agent
-    default: 1es-windows-ps-compute
+    default: Dev
   - name: BaseBranch
     displayName: Base Branch
     default: main
