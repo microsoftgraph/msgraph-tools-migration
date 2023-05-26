@@ -21,7 +21,13 @@ parameters:
 pool: $(BuildAgent)
 trigger: none
 pr: none
-
+schedules:
+  - cron: "0 5 * * WED"  # every Wednesday at 4AM UTC (off hours for Redmond, Nairobi and Montréal)
+    displayName: 'Publisher'
+    branches:
+      include:
+      - main
+    always: true
 name: 'Migration Tool publisher'
 steps:
   - template: ./common-templates/checkout.yml
