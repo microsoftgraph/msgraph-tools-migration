@@ -1,6 +1,6 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
-$NuspecFile = Join-Path $PSScriptRoot "..\artifacts\Microsoft.Graph.Migration.Tool.nuspec" -Resolve
+$NuspecFile = Join-Path $PSScriptRoot "..\Microsoft.Graph.Migration.Tool.nuspec" -Resolve
 $ModuleMetadataJson = Join-Path $PSScriptRoot "..\config\ModuleMetadata.json" -Resolve
 [HashTable] $NuspecMetadata = Get-Content $ModuleMetadataJson | ConvertFrom-Json -AsHashTable
 $NuspecMetadata.Remove("assemblyOriginatorKeyFile")
