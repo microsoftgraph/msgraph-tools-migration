@@ -50,13 +50,14 @@ steps:
           }
                     
   - task: PowerShell@2
-    displayName: Pack Migration Tool Module
+    displayName: Pack Migration Tool Module and Test
     inputs:
       targetType: inline
       pwsh: true
       script: |
         . $(System.DefaultWorkingDirectory)/tools/NuspecHelper.ps1
         . $(System.DefaultWorkingDirectory)/tools/PackModule.ps1
+        . $(System.DefaultWorkingDirectory)/tools/TestModule.ps1
   
   - template: ./common-templates/esrp/codesign-nuget.yml
     parameters:
