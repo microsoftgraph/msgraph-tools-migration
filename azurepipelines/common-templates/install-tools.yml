@@ -16,6 +16,6 @@ steps:
   - task: NuGetToolInstaller@1
     displayName: Install Nuget
 
-  - task: NuGetAuthenticate@0
+  - task: NuGetAuthenticate@1
 
 
