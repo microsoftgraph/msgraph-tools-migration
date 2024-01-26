@@ -1,5 +1,7 @@
-﻿$BetaProfileRegex = "^(Select-MgProfile)\s+(?:-Name)?(\s+)?([beta{'}])"
-$V1ProfileRegex = "^(Select-MgProfile)\s+(?:-Name)?(\s+)?('v1\.0'|v1\.0)"
+﻿$BetaProfileRegex = "^(Select-MgProfile)\s+(?:-Name)?(\s+)?('beta'|""beta""|beta)"
+$V1ProfileRegex = "^(Select-MgProfile)\s+(?:-Name)?(\s+)?('v1\.0'|v1\.0|""v1\.0"")"
+$ConnectMgGraphRegex = "(?i)^(connect-mggraph|#connect-mggraph)"
+$DisconnectMgGraphRegex = "(?i)^(disconnect-mggraph|#disconnect-mggraph)"
 function Read-MgScriptDirectory {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
@@ -66,7 +68,7 @@ function Invoke-MgScriptAnalyzer {
             $indexOfItem = $LineContent.Add($_)
             
             if ($_ -match $BetaProfileRegex) {
-                if(-not $_.StartsWith("#")){
+                if(-not ($_.StartsWith("#"))){
                     $indexOfLineItem = $LineNumbers.Add($i)
                 }
                 
@@ -77,8 +79,10 @@ function Invoke-MgScriptAnalyzer {
         if ($GraphProfile -ieq "beta") {
             for ($g = 0; $g -lt $LineContent.Count; $g++) {
                 if ($LineContent[$g].Contains("-Mg")) {
-                    $Original.Add($g + 1, $LineContent[$g])
-                    $ProposedChanges.Add($g + 1, $LineContent[$g].ToString().Replace("-Mg", "-MgBeta"))
+                    if( $LineContent[$g] -notmatch $ConnectMgGraphRegex -and $LineContent[$g] -notmatch $DisconnectMgGraphRegex){
+                        $Original.Add($g + 1, $LineContent[$g])
+                        $ProposedChanges.Add($g + 1, $LineContent[$g].ToString().Replace("-Mg", "-MgBeta"))
+                    }
                 }
             }
         }
@@ -100,18 +104,22 @@ function Invoke-MgScriptAnalyzer {
             $LineUpdate.Keys | ForEach-Object {
                 $LineNumber = $_
                 for ($m = $lineNumber + 1; $m -lt $LineUpdate[$LineNumber]; $m++) {
+                    if($LineContent[$m] -notmatch $ConnectMgGraphRegex -and  $LineContent[$m] -notmatch $DisconnectMgGraphRegex){
                     if ($LineContent[$m].Contains("-Mg")) {
-                        $Original.Add($m + 1, $LineContent[$m])
-                        $ProposedChanges.Add($m + 1, $LineContent[$m].ToString().Replace("-Mg", "-MgBeta"))
+                            $Original.Add($m + 1, $LineContent[$m])
+                            $ProposedChanges.Add($m + 1, $LineContent[$m].ToString().Replace("-Mg", "-MgBeta"))
+                        }
                     }
                 
                 }
             }
             if ($Lines -gt $LineUpdate.Count) {
                 for ($n = $LineNumbers[$Lines - 1] + 1; $n -lt $LineContent.Count; $n++) {
+                    if( $LineContent[$n] -notmatch $ConnectMgGraphRegex -and  $LineContent[$n] -notmatch $DisconnectMgGraphRegex){
                     if ($LineContent[$n].Contains("-Mg")) {
-                        $Original.Add($n + 1, $LineContent[$n])
-                        $ProposedChanges.Add($n + 1, $LineContent[$n].ToString().Replace("-Mg", "-MgBeta"))
+                            $Original.Add($n + 1, $LineContent[$n])
+                            $ProposedChanges.Add($n + 1, $LineContent[$n].ToString().Replace("-Mg", "-MgBeta"))
+                        }
                     }
                 }
             }
@@ -196,7 +204,7 @@ function New-MgMigrationPlan {
 #New-MgMigrationPlan -FilePath "C:\Dev\M\msgraph-sdk-powershell\samples\6-Sites.ps1"
 #New-MgMigrationPlan -FilePath "C:\Projects\msgraph-sdk-powershell\samples\6-Sites.ps1" -GraphProfile Beta
 #New-MgMigrationPlan -FilePath "C:\Projects\msgraph-sdk-powershell\samples\5-Teams.ps1"
-#New-MgMigrationPlan -FilePath "C:\Projects\msgraph-sdk-powershell\samples\5-Teams.ps1" -UpdatedFilePath C:\PlayGround
+#New-MgMigrationPlan -FilePath"C:\PlayGround\M365Groupreport.ps1" -UpdatedFilePath C:\PlayGround
 # Test cases:
 # 1. Cmdlet with no changes.
 # 2. Cmdlet with changes.

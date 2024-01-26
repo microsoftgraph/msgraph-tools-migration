@@ -9,7 +9,7 @@
     "projectUri": "https://github.com/microsoftgraph/msgraph-sdk-powershell",
     "releaseNotes": "See https://aka.ms/GraphPowerShell-Release.",
     "requireLicenseAcceptance": "true",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "tags": [
       "MicrosoftGraph",
       "Microsoft",
