@@ -13,7 +13,7 @@ parameters:
     default: true
 
 pool: 
-  name: 1es-windows-ps-compute
+  name: 1es-windows-ps-compute-m
 trigger: none
 pr: none
 
